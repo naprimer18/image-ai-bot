@@ -3,10 +3,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
-import { TasksModule } from './tasks/tasks.module';
+import { LogsModule } from './logger/logs.module';
 import entities from './typeorm';
 import { join } from 'path';
-import { TelegramModule } from './telegram/telegram.module';
+import { TgImageGeneratorModule } from './tg-image-generator-bot/tg-image-generator-bot.module';
 
 @Module({
   imports: [
@@ -39,8 +39,8 @@ import { TelegramModule } from './telegram/telegram.module';
       },
     }),
     // services
-    TasksModule,
-    TelegramModule,
+    LogsModule,
+    TgImageGeneratorModule,
   ],
   controllers: [],
   providers: [],

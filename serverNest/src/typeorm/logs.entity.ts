@@ -7,8 +7,8 @@ import {
 import { Field, ObjectType, Int } from '@nestjs/graphql';
 
 @ObjectType()
-@Entity('task')
-export class Task {
+@Entity('Logs')
+export class Logs {
   @Field(() => Int)
   @PrimaryGeneratedColumn()
   id: number;

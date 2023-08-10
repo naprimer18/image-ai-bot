@@ -2,17 +2,17 @@ import { ConfigService } from '@nestjs/config';
 import { Start, Update, Ctx, On, Message } from 'nestjs-telegraf';
 import { Scenes, Telegraf } from 'telegraf';
 import { Configuration, OpenAIApi } from 'openai';
-import { TasksService } from 'src/tasks/tasks.service';
+import { LogsService } from 'src/logger/logs.service';
 
 type Context = Scenes.SceneContext;
 
 @Update()
-export class TelegramService extends Telegraf<Context> {
+export class TgImageGeneratorService extends Telegraf<Context> {
   private openai;
 
   constructor(
     private readonly configService: ConfigService,
-    private readonly tasksService: TasksService,
+    private readonly logsService: LogsService,
   ) {
     super(configService.get('TELEGRAM_API'));
 
@@ -40,7 +40,10 @@ export class TelegramService extends Telegraf<Context> {
           ctx.from.username || 'пользователь'
         }, визуализация "${message}", скоро будет готова!`,
       );
-      this.tasksService.addTask(ctx.from.username || 'user', message);
+      this.logsService.addLogs(
+        ctx.from.username || 'user',
+        message || 'messge',
+      );
 
       const response = await this.openai.createImage({
         prompt,
@@ -50,7 +53,7 @@ export class TelegramService extends Telegraf<Context> {
 
       ctx.replyWithPhoto(response.data.data[0].url);
     } catch (e) {
-      console.log('eer1 ', e);
+      console.log('err ', e);
     }
   }
 }

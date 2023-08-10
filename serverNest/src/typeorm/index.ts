@@ -1,6 +1,6 @@
-import { Task } from './task.entity';
+import { Logs } from './logs.entity';
 
-const entities = [Task];
+const entities = [Logs];
 
-export { Task };
+export { Logs };
 export default entities;

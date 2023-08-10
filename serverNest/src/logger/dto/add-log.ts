@@ -1,13 +1,10 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class EditTaskInput {
+export class AddLogsInput {
   @Field()
   name: string;
 
   @Field()
   message: string;
-
-  @Field()
-  id: number;
 }

@@ -7,20 +7,18 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export interface Task {
+export interface Logs {
     id?: Nullable<string>;
     name?: Nullable<string>;
     message?: Nullable<string>;
 }
 
 export interface IQuery {
-    getAllTasks: Task[];
+    getAllLogss: Logs[];
 }
 
 export interface IMutation {
-    addTask: Task;
-    editTask: Task;
-    removeTask: Task;
+    addLogs: Logs;
 }
 
 type Nullable<T> = T | null;

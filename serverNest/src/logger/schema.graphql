@@ -1,0 +1,13 @@
+type Logs {
+  id: ID
+  name: String
+  message: String
+}
+
+type Query {
+  getAllLogss: [Logs!]!
+}
+
+type Mutation {
+  addLogs(name: String!): Logs!
+}
