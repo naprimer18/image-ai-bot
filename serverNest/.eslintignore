@@ -1,0 +1,6 @@
+**/*.yml
+**/*.json
+**/*.md
+**/Dockerfile
+docs/**/*.*
+coverage/**/*.*

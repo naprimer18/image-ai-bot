@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: postgres
+    ports: 
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345vlad
+    image: postgres:15-alpine
+
+  nodejs:
+    container_name: my_service
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 9229:9229
+    volumes:
+        - .:/app
+        - /app/node_modules
+    environment:
+      NODE_ENV: development
+    env_file:
+      - .env
+    command: yarn start:dev
+    depends_on:
+      - postgres
+    restart: always
