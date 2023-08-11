@@ -6,7 +6,7 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { LogsModule } from './logger/logs.module';
 import entities from './typeorm';
 import { join } from 'path';
-// import { TgImageGeneratorModule } from './tg-image-generator-bot/tg-image-generator-bot.module';
+import { TgImageGeneratorModule } from './tg-image-generator-bot/tg-image-generator-bot.module';
 import { TgChatBotModule } from './tg-chat-bot/tg-chat-bot.module';
 import { ChatgptModule } from './chatgpt/chatgpt.module';
 
@@ -41,8 +41,8 @@ import { ChatgptModule } from './chatgpt/chatgpt.module';
       },
     }),
     // services
-    LogsModule,
-    // TgImageGeneratorModule,
+    // LogsModule,
+    TgImageGeneratorModule,
     TgChatBotModule,
     ChatgptModule,
   ],
