@@ -7,15 +7,14 @@ import { LogsService } from 'src/logger/logs.service';
 type Context = Scenes.SceneContext;
 
 @Update()
-export class TgImageGeneratorService extends Telegraf<Context> {
+export class TgChatBotService extends Telegraf<Context> {
   private openai;
 
   constructor(
     private readonly configService: ConfigService,
     private readonly logsService: LogsService,
   ) {
-    super(configService.get('TELEGRAM_IMAGE_API'));
-
+    super(configService.get('TELEGRAM_CHAT_API'));
     const configuration = new Configuration({
       apiKey: configService.get('GPT_API'),
     });
@@ -24,34 +23,18 @@ export class TgImageGeneratorService extends Telegraf<Context> {
   @Start()
   onStart(@Ctx() ctx: Context) {
     ctx.replyWithHTML(`<b>Привет, ${ctx.from.username}</b>
-        Введите любую фразу и получите ее визуализацию!
+        Спроси меня и я тебе отвечу!
     `);
   }
 
   @On('text')
   async onMessage(@Message('text') message: string, @Ctx() ctx: Context) {
+    console.log('message ', message);
     try {
-      console.log('message ', message);
-      const prompt = `${message}`;
-      const size = '256x256';
-      const number = 1;
-      ctx.replyWithHTML(
-        `Уважаемый(ая) ${
-          ctx.from.username || 'пользователь'
-        }, визуализация "${message}", скоро будет готова!`,
-      );
       this.logsService.addLogs(
         ctx.from.username || 'user',
         message || 'messge',
       );
-
-      const response = await this.openai.createImage({
-        prompt,
-        size,
-        n: Number(number),
-      });
-
-      ctx.replyWithPhoto(response.data.data[0].url);
     } catch (e) {
       console.log('err ', e);
     }

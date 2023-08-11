@@ -7,6 +7,7 @@ import { LogsModule } from './logger/logs.module';
 import entities from './typeorm';
 import { join } from 'path';
 import { TgImageGeneratorModule } from './tg-image-generator-bot/tg-image-generator-bot.module';
+import { TgChatBotModule } from './tg-chat-bot/tg-chat-bot.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { TgImageGeneratorModule } from './tg-image-generator-bot/tg-image-genera
     // services
     LogsModule,
     TgImageGeneratorModule,
+    TgChatBotModule,
   ],
   controllers: [],
   providers: [],
