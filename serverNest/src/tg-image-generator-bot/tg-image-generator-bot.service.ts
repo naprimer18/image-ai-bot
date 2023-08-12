@@ -54,6 +54,9 @@ export class TgImageGeneratorService extends Telegraf<Context> {
       ctx.replyWithPhoto(response.data.data[0].url);
     } catch (e) {
       console.log('err ', e);
+      ctx.replyWithHTML(
+        'К сожалению, я не могу делать подобную визуализацию, попробуйте перефарзировать или добавить больше описания',
+      );
     }
   }
 }

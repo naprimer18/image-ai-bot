@@ -24,13 +24,23 @@ export class TgChatBotService extends Telegraf<Context> {
 
   @On('text')
   async onMessage(@Message('text') message: string, @Ctx() ctx: Context) {
-    ctx.replyWithHTML(
-      `Уважаемый(ая) ${
-        ctx.from?.username || 'пользователь'
-      }, ваш ответ будет скоро готов!`,
-    );
-    const res = await this.gpt.generateResponse(message);
-    this.logsService.addLogs(ctx.from.username || 'user', message || 'messge');
-    ctx.replyWithHTML(res.data.choices[0].text);
+    try {
+      ctx.replyWithHTML(
+        `Уважаемый(ая) ${
+          ctx.from?.username || 'пользователь'
+        }, ваш ответ будет скоро готов!`,
+      );
+      const res = await this.gpt.generateResponse(message);
+      this.logsService.addLogs(
+        ctx.from.username || 'user',
+        message || 'messge',
+      );
+      ctx.replyWithHTML(res.data.choices[0].text);
+    } catch (e) {
+      console.log('err', e);
+      ctx.replyWithHTML(
+        'К сожалению, я не могу ответить на подобный вопрос, попробуйте перефарзировать или добавить больше описания',
+      );
+    }
   }
 }
